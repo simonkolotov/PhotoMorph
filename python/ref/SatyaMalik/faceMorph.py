@@ -95,26 +95,29 @@ if __name__ == '__main__' :
         points.append((x,y))
 
 
-    # Allocate space for final output
-    imgMorph = np.zeros(img1.shape, dtype = img1.dtype)
+    for alpha in np.linspace(0,1,num=10):
+        # Allocate space for final output
+        imgMorph = np.zeros(img1.shape, dtype = img1.dtype)
+    
+        # Read triangles from tri.txt
+        with open("tri.txt") as file :
+            for line in file :
+                x,y,z = line.split()
+                
+                x = int(x)
+                y = int(y)
+                z = int(z)
+                
+                t1 = [points1[x], points1[y], points1[z]]
+                t2 = [points2[x], points2[y], points2[z]]
+                t = [ points[x], points[y], points[z] ]
+    
+                # Morph one triangle at a time.
+                morphTriangle(img1, img2, imgMorph, t1, t2, t, alpha)
+    
+    
+        # Display Result
+        cv2.imshow("Morphed Face", np.uint8(imgMorph))
+        cv2.waitKey(250)
 
-    # Read triangles from tri.txt
-    with open("tri.txt") as file :
-        for line in file :
-            x,y,z = line.split()
-            
-            x = int(x)
-            y = int(y)
-            z = int(z)
-            
-            t1 = [points1[x], points1[y], points1[z]]
-            t2 = [points2[x], points2[y], points2[z]]
-            t = [ points[x], points[y], points[z] ]
-
-            # Morph one triangle at a time.
-            morphTriangle(img1, img2, imgMorph, t1, t2, t, alpha)
-
-
-    # Display Result
-    cv2.imshow("Morphed Face", np.uint8(imgMorph))
     cv2.waitKey(0)

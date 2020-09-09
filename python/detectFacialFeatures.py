@@ -1,6 +1,3 @@
-# USAGE
-# python detect_face_parts.py --shape-predictor shape_predictor_68_face_landmarks.dat --image images/example_01.jpg 
-
 # import the necessary packages
 from imutils import face_utils
 import numpy as np
@@ -92,7 +89,7 @@ class FaceSelector(object):
       # i.e., (x, y, w, h), remember to downsize the coordinates
       self.rects += [tuple([int(i*r) for i in face_utils.rect_to_bb(rect)])]
 
-      cv2.putText(self.img500, "RET/SPC to select, q/SEC to quit", (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
+      cv2.putText(self.img500, "RET/SPC to select, q/ESC to quit", (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
 		  0.7, (0, 0, 255), 2)
       
     # create trackbar for face selection
@@ -238,7 +235,7 @@ if __name__ == '__main__':
 
   # construct the argument parser and parse the arguments
   ap = argparse.ArgumentParser()
-  ap.add_argument("-p", "--shape-predictor", default='shape_predictor_68_face_landmarks.dat',
+  ap.add_argument("-p", "--shape-predictor", default='./res/shape_predictor_68_face_landmarks.dat',
 	          help="path to facial landmark predictor")
   ap.add_argument("-i", "--image", required=True,
 	          help="path to input image")
